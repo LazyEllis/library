@@ -20,6 +20,12 @@ Book.prototype.changeReadStatus = function () {
   this.read = this.read === 'Read' ? 'Not Read' : 'Read';
 };
 
+// Function to set color of buttons depending on read status
+const setButtonColor = (element) =>
+  element.textContent === 'Read'
+    ? (element.className = 'read')
+    : (element.className = 'unread');
+
 // Function to add a book to the library and update the display
 const addBookToLibrary = () => {
   // Clear the book grid
@@ -38,6 +44,7 @@ const addBookToLibrary = () => {
         bookData = document.createElement('button');
         bookData.textContent = `${myLibrary[index][element]}`;
         bookData.dataset.readIndex = `${index}`;
+        setButtonColor(bookData);
       } else {
         // Create a paragraph for other book data
         bookData = document.createElement('p');
@@ -53,6 +60,7 @@ const addBookToLibrary = () => {
     // Create a delete button for each book
     const deleteButton = document.createElement('button');
     deleteButton.textContent = 'Delete Book';
+    deleteButton.classList.add('btn');
     deleteButton.dataset.index = `${index}`;
 
     bookInfo.appendChild(deleteButton);
@@ -117,6 +125,7 @@ const toggleReadStatus = (e) => {
     if (button.dataset.index != e.target.dataset.readIndex) return;
     e.target.textContent =
       e.target.textContent === 'Read' ? 'Not Read' : 'Read';
+    setButtonColor(e.target);
   });
 };
 

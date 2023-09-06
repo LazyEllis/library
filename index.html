@@ -4,12 +4,43 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
+    <link
+      rel="preload"
+      href="/assets/fonts/urw_din_arabic_cond_medium-webfont.woff"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/assets/fonts/urw_din_arabic_cond_medium-webfont.woff"
+      as="font"
+      type="font/woff"
+      crossorigin
+    />
+    <link
+      rel="icon"
+      href="assets/img/library-outline.svg"
+      type="image/x-icon"
+    />
     <title>Library</title>
   </head>
   <body>
-    <h1>Library</h1>
-    <button class="add-book btn">Add Book</button>
-    <div class="book-grid"></div>
+    <div class="header">
+      <h1>
+        <img
+          src="assets/img/library-outline.svg"
+          alt="Icon showing a person reading a book"
+          class="icon"
+        />Library
+      </h1>
+    </div>
+    <div class="main-content">
+      <div class="container">
+        <button class="add-book btn">Add Book</button>
+      </div>
+      <div class="book-grid"></div>
+    </div>
     <dialog>
       <form method="dialog" id="newBookForm">
         <div class="form-section">
@@ -33,7 +64,7 @@
             value="true"
           />
         </div>
-        <button type="submit">Submit</button>
+        <button type="submit" class="btn">Submit</button>
       </form>
     </dialog>
 

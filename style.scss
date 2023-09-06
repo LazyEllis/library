@@ -1,12 +1,247 @@
-dialog {
+@font-face {
+  font-family: "urw_din_arabic_condmedium";
+  src: url("assets/fonts/urw_din_arabic_cond_medium-webfont.woff2")
+      format("woff2"),
+    url("assets/fonts/urw_din_arabic_cond_medium-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+$max-columns: 3;
+
+$card-effect: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+$header-bg-color: #140e42;
+$header-txt-color: #d3d5e9;
+$icon-color: invert(91%) sepia(5%) saturate(812%) hue-rotate(198deg)
+  brightness(95%) contrast(91%);
+
+$main-content-bg-color: #28246e;
+$primary-card-bg-color: #1a0c3d;
+$primary-card-txt-color: #41ead1;
+$card-border-color: #3ae9d4;
+
+$primary-btn-bg-color: #252752;
+$primary-btn-txt-color: $header-txt-color;
+$btn-border-color: $card-border-color;
+
+$secondary-btn-bg-color: #7e43f2;
+$secondary-btn-txt-color: $card-border-color;
+
+$read-color: #3ee537;
+$read-txt-color: #04231c;
+$unread-color: #e53e3e;
+
+$modal-bg-color: $header-bg-color;
+$primary-modal-txt-color: $header-txt-color;
+$secondary-modal-txt-color: $card-border-color;
+
+$primary-input-bg-color: $primary-btn-bg-color;
+$primary-input-txt-color: $header-txt-color;
+
+$secondary-input-bg-color: $card-border-color;
+$secondary-input-txt-color: $read-txt-color;
+
+$checked: $read-color;
+$unchecked: $unread-color;
+
+:root {
+  font-size: 22px;
+}
+
+h1,
+body,
+p {
+  margin: 0;
   padding: 0;
 }
 
-form {
-  // display: flex;
-  padding: 1rem;
+button,
+input {
+  font-size: inherit;
+  font-family: inherit;
 }
 
 button {
   display: block;
+  cursor: pointer;
+  color: $primary-btn-txt-color;
+  border: 1px solid $btn-border-color;
+
+  &.btn {
+    background-color: $primary-btn-bg-color;
+    color: $primary-btn-txt-color;
+
+    &:hover {
+      background-color: $secondary-btn-bg-color;
+      color: $secondary-btn-txt-color;
+    }
+  }
+
+  &.read {
+    background-color: $read-color;
+    color: $read-txt-color;
+
+    &:hover {
+      background-color: darken($read-color, 10%);
+    }
+  }
+
+  &.unread {
+    background-color: $unread-color;
+    color: $primary-btn-txt-color;
+
+    &:hover {
+      background-color: darken($unread-color, 10%);
+    }
+  }
+}
+
+body {
+  font-family: "urw_din_arabic_condmedium", sans-serif;
+  height: 100%;
+  background-color: $main-content-bg-color;
+
+  > div {
+    padding: 10px 20px;
+  }
+}
+
+.header {
+  background-color: $header-bg-color;
+  color: $header-txt-color;
+  box-shadow: $card-effect;
+  position: sticky;
+  top: 0;
+
+  .icon {
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    margin-right: 0.5rem;
+    vertical-align: middle;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    filter: $icon-color;
+  }
+}
+
+.main-content {
+  .container {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+
+    button {
+      box-shadow: $card-effect;
+      width: 280px;
+    }
+  }
+
+  .book-grid {
+    display: grid;
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(
+        max(250px, (100% - (($max-columns) - 1) * 10px) / ($max-columns)),
+        1fr
+      )
+    );
+    grid-gap: 10px;
+
+    > div {
+      background-color: $primary-card-bg-color;
+      color: $primary-card-txt-color;
+      border: 1px solid $card-border-color;
+      box-shadow: $card-effect;
+      padding: 20px;
+      display: flex;
+      gap: 10px;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+  }
+}
+
+dialog {
+  padding: 0;
+  width: 250px;
+  background-color: $modal-bg-color;
+  border: 2px solid $card-border-color;
+
+  &::backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  form {
+    display: flex;
+    padding: 20px;
+    flex-direction: column;
+    gap: 10px;
+
+    .form-section {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      color: $primary-modal-txt-color;
+
+      &:focus-within {
+        color: $secondary-modal-txt-color;
+      }
+
+      input {
+        padding-left: 10px;
+        outline: none;
+        border: none;
+        background-color: $primary-input-bg-color;
+        color: $primary-input-txt-color;
+
+        &:focus {
+          background-color: $secondary-input-bg-color;
+          color: $secondary-input-txt-color;
+        }
+
+        &[type="checkbox"] {
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          appearance: none;
+          width: 40px;
+          height: 20px;
+          border-radius: 20px;
+          background-color: $unchecked;
+          position: relative;
+          cursor: pointer;
+          transition: background-color 0.2s;
+
+          &:before {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            top: 0;
+            left: 0;
+            background-color: $secondary-input-bg-color;
+            transition: transform 0.2s;
+          }
+
+          &:checked {
+            background-color: $checked;
+
+            &:before {
+              transform: translateX(20px);
+              background-color: $secondary-btn-bg-color;
+            }
+          }
+        }
+      }
+    }
+
+    :nth-last-child(2) {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
 }
