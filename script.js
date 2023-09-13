@@ -8,17 +8,18 @@ const newBookForm = document.forms.newBookForm;
 const myLibrary = [];
 
 // Book constructor function
-function Book(title, author, chapters, read) {
-  this.title = title;
-  this.author = author;
-  this.chapters = chapters;
-  this.read = read;
+class Book {
+  constructor(title, author, chapters, read) {
+    this.title = title;
+    this.author = author;
+    this.chapters = chapters;
+    this.read = read;
+  }
+  // Prototype method to change read status
+  changeReadStatus() {
+    this.read = this.read === 'Read' ? 'Not Read' : 'Read';
+  }
 }
-
-// Prototype method to change read status
-Book.prototype.changeReadStatus = function () {
-  this.read = this.read === 'Read' ? 'Not Read' : 'Read';
-};
 
 // Function to set color of buttons depending on read status
 const setButtonColor = (element) =>
